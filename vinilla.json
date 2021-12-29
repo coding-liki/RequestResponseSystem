@@ -2,7 +2,8 @@
     "name": "RequestResponseSystem",
     "vendor": "CodingLiki",
     "description": "abstract request->response system ",
-    "repo_url": "",
+    "repo_url": "https://github.com/coding-liki/RequestResponseSystem",
+    "version": "1.0",
     "depends_on": [
         "Guzzle/Psr7",
         "Psr/http-factory",
