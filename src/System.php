@@ -28,7 +28,6 @@ class System
                 throw new MethodNotImplementedException();
             }
 
-            print_r($request);
             $this->requestMiddlewaresBefore($request);
             $handlerDecider = $this->handlerDeciderFabric->build($request);
 
@@ -45,7 +44,7 @@ class System
             $this->handlerMiddlewaresBefore($handler);
 
             $handler->setRequest($request);
-            $response = $handler->run();
+            $response = $handler->run($request);
 
             $responseProcessor = $this->responseProcessorFabric->build($response);
 

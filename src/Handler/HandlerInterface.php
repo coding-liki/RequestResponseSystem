@@ -7,6 +7,7 @@ use CodingLiki\RequestResponseSystem\ResponseProcessor\InternalResponseInterface
 
 /**
  * @template RequestClass of InternalRequestInterface
+ * @method InternalResponseInterface run(InternalRequestInterface $request)
  */
 interface HandlerInterface
 {
@@ -19,5 +20,4 @@ interface HandlerInterface
      */
     public function getRequest(): mixed;
 
-    public function run(): InternalResponseInterface;
 }

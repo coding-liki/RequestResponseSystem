@@ -23,7 +23,7 @@ class MiddlewareContainer
                     $this->globalHandlersMiddlewares[] = $middleware;
                 }
             } else {
-                if (!in_array($middleware, $this->handlerMiddlewares[$class])) {
+                if (!in_array($middleware, $this->handlerMiddlewares[$class] ?? [])) {
                     $this->handlerMiddlewares[$class][] = $middleware;
                 }
             }
@@ -43,7 +43,7 @@ class MiddlewareContainer
                     $this->globalRequestMiddlewares[] = $middleware;
                 }
             } else {
-                if (!in_array($middleware, $this->requestMiddlewares[$class])) {
+                if (!in_array($middleware, $this->requestMiddlewares[$class] ?? [])) {
                     $this->requestMiddlewares[$class][] = $middleware;
                 }
             }
