@@ -69,7 +69,6 @@ class System
         foreach ($requestMiddlewares as $middleware) {
             $middleware
                 ->setThrowable($throwable ?? NULL)
-                ->setRequest($request ?? NULL)
                 ->setResponse($response ?? NULL)
                 ->after();
         }
@@ -84,7 +83,6 @@ class System
                 ->setThrowable($throwable ?? NULL)
                 ->setRequest($request ?? NULL)
                 ->setResponse($response ?? NULL)
-                ->setHandler($handler ?? NULL)
                 ->after();
         }
     }
@@ -95,7 +93,6 @@ class System
 
         foreach ($requestMiddlewares as $middleware) {
             $middleware
-                ->setRequest($request)
                 ->before();
         }
     }
@@ -106,7 +103,6 @@ class System
 
         foreach ($handlersMiddlewares as $middleware) {
             $middleware
-                ->setHandler($handler)
                 ->before();
         }
     }

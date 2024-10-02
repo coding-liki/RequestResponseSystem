@@ -5,6 +5,7 @@ namespace CodingLiki\RequestResponseSystem\Middleware;
 use CodingLiki\RequestResponseSystem\Handler\HandlerInterface;
 use CodingLiki\RequestResponseSystem\InternalRequestInterface;
 use CodingLiki\RequestResponseSystem\ResponseProcessor\InternalResponseInterface;
+use Psr\Container\ContainerInterface;
 
 interface MiddlewareInterface
 {
@@ -19,5 +20,7 @@ interface MiddlewareInterface
     public function setResponse(?InternalResponseInterface $response): static;
 
     public function setHandler(?HandlerInterface $handler): static;
+
+    public function setDiContainer(ContainerInterface $diContainer): static;
 }
 

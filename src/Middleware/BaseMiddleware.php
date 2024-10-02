@@ -5,13 +5,15 @@ namespace CodingLiki\RequestResponseSystem\Middleware;
 use CodingLiki\RequestResponseSystem\Handler\HandlerInterface;
 use CodingLiki\RequestResponseSystem\InternalRequestInterface;
 use CodingLiki\RequestResponseSystem\ResponseProcessor\InternalResponseInterface;
+use Psr\Container\ContainerInterface;
 
 abstract class BaseMiddleware implements MiddlewareInterface
 {
-    protected ?\Throwable                $throwable = NULL;
-    protected ?HandlerInterface          $handler   = NULL;
-    protected ?InternalRequestInterface  $request   = NULL;
-    protected ?InternalResponseInterface $response  = NULL;
+    protected ?\Throwable $throwable = NULL;
+    protected ?HandlerInterface $handler = NULL;
+    protected ?InternalRequestInterface $request = NULL;
+    protected ?InternalResponseInterface $response = NULL;
+    private ContainerInterface $diContainer;
 
     public function before(): void
     {
@@ -47,5 +49,17 @@ abstract class BaseMiddleware implements MiddlewareInterface
         $this->handler = $handler;
 
         return $this;
+    }
+
+    public function setDiContainer(ContainerInterface $diContainer): static
+    {
+        $this->diContainer = $diContainer;
+
+        return $this;
+    }
+
+    public function getDiContainer(): ContainerInterface
+    {
+        return $this->diContainer;
     }
 }

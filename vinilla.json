@@ -7,6 +7,7 @@
     "depends_on": [
         "Guzzle/Psr7",
         "Psr/http-factory",
-        "Ralouphie/getallheaders"
+        "Ralouphie/getallheaders",
+        "CodingLiki/DiContainer"
     ]
 }

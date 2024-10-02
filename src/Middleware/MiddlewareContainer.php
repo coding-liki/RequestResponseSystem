@@ -2,15 +2,20 @@
 
 namespace CodingLiki\RequestResponseSystem\Middleware;
 
+use CodingLiki\DiContainer\DiContainer;
 use CodingLiki\RequestResponseSystem\Handler\HandlerInterface;
 use CodingLiki\RequestResponseSystem\InternalRequestInterface;
 
 class MiddlewareContainer
 {
-    private array $handlerMiddlewares        = [];
-    private array $requestMiddlewares        = [];
-    private array $globalRequestMiddlewares  = [];
+    private array $handlerMiddlewares = [];
+    private array $requestMiddlewares = [];
+    private array $globalRequestMiddlewares = [];
     private array $globalHandlersMiddlewares = [];
+
+    public function __construct(private DiContainer $diContainer)
+    {
+    }
 
     /**
      * @param MiddlewareInterface[] $middlewares
@@ -60,10 +65,16 @@ class MiddlewareContainer
         $middlewares = $this->globalRequestMiddlewares;
 
         if ($request !== NULL) {
-            $middlewares = array_merge($middlewares, $this->requestMiddlewares[$request::class] ?? []);
+            $middlewares = array_merge(
+                $this->globalRequestMiddlewares,
+                $this->requestMiddlewares[$request::class] ?? []
+            );
         }
 
-        return $middlewares;
+        return array_map(
+            fn(MiddlewareInterface $middleware) => $middleware->setRequest($request)->setDiContainer($this->diContainer),
+            $middlewares
+        );
     }
 
     /**
@@ -74,10 +85,16 @@ class MiddlewareContainer
         $middlewares = $this->globalHandlersMiddlewares;
 
         if ($handler !== NULL) {
-            $middlewares = array_merge($middlewares, $this->handlerMiddlewares[$handler::class] ?? []);
+            $middlewares = array_merge(
+                $this->globalHandlersMiddlewares,
+                $this->handlerMiddlewares[$handler::class] ?? []
+            );
         }
 
-        return $middlewares;
+        return array_map(
+            fn(MiddlewareInterface $middleware) => $middleware->setHandler($handler)->setDiContainer($this->diContainer),
+            $middlewares
+        );
     }
 }
 
